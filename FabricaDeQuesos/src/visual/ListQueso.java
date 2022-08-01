@@ -44,7 +44,6 @@ public class ListQueso extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
-	private JTextField txtCodigo;
 	private static DefaultTableModel model;
 	private JButton btnModificar;
 	private JButton btnCancelar;
@@ -54,7 +53,6 @@ public class ListQueso extends JDialog {
 	private JRadioButton rdbtnCilindro;
 	private String[] headers = {"Codigo","Radio","Costo","Precio Unitario","Volumen"};
 	private Queso selected = null;
-	private JButton btnEliminar;
 	/**
 	 * Launch the application.
 	 */
@@ -75,6 +73,7 @@ public class ListQueso extends JDialog {
 		setTitle("Lista de Quesos");
 		setModal(true);
 		setBounds(100, 100, 601, 362);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -82,7 +81,7 @@ public class ListQueso extends JDialog {
 		
 		JPanel panelTipos = new JPanel();
 		panelTipos.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelTipos.setBounds(10, 11, 282, 89);
+		panelTipos.setBounds(10, 11, 565, 89);
 		contentPanel.add(panelTipos);
 		panelTipos.setLayout(null);
 		
@@ -101,7 +100,7 @@ public class ListQueso extends JDialog {
 				loadQuesos();
 			}
 		});
-		rdbtnEsfera.setBounds(4, 43, 79, 23);
+		rdbtnEsfera.setBounds(74, 43, 79, 23);
 		panelTipos.add(rdbtnEsfera);
 		
 		rdbtnCilindro = new JRadioButton("Cilindrico");
@@ -115,7 +114,7 @@ public class ListQueso extends JDialog {
 				loadQuesos();
 			}
 		});
-		rdbtnCilindro.setBounds(87, 43, 79, 23);
+		rdbtnCilindro.setBounds(227, 43, 79, 23);
 		panelTipos.add(rdbtnCilindro);
 		
 		rdbtnCilindroH = new JRadioButton("Cilindrico Hueco");
@@ -129,30 +128,8 @@ public class ListQueso extends JDialog {
 				loadQuesos();
 			}
 		});
-		rdbtnCilindroH.setBounds(170, 43, 108, 23);
+		rdbtnCilindroH.setBounds(380, 43, 108, 23);
 		panelTipos.add(rdbtnCilindroH);
-		
-		JPanel panelBusqueda = new JPanel();
-		panelBusqueda.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelBusqueda.setBounds(302, 11, 273, 89);
-		contentPanel.add(panelBusqueda);
-		panelBusqueda.setLayout(null);
-		
-		JLabel lblNewLabel_1 = new JLabel("Busqueda por codigo:");
-		lblNewLabel_1.setBounds(10, 11, 160, 14);
-		panelBusqueda.add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("Codigo del Queso:");
-		lblNewLabel_2.setBounds(10, 46, 104, 14);
-		panelBusqueda.add(lblNewLabel_2);
-		
-		txtCodigo = new JTextField();
-		
-		
-		
-		txtCodigo.setBounds(124, 43, 139, 20);
-		panelBusqueda.add(txtCodigo);
-		txtCodigo.setColumns(10);
 		
 		JPanel panelTabla = new JPanel();
 		panelTabla.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -173,7 +150,6 @@ public class ListQueso extends JDialog {
 					selected = Fabrica.getInstance().buscarQuesoByCod(cod);
 					
 					btnModificar.setEnabled(true);
-					btnEliminar.setEnabled(true);
 				}
 			}
 		});
@@ -193,26 +169,8 @@ public class ListQueso extends JDialog {
 						regQueso.setVisible(true);
 						loadQuesos();
 						btnModificar.setEnabled(false);
-						btnEliminar.setEnabled(false);
 					}
 				});
-				
-				btnEliminar = new JButton("Eliminar");
-				btnEliminar.setEnabled(false);
-				btnEliminar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						int index = table.getSelectedRow();
-						selected = Fabrica.getInstance().buscarQuesoByCod(table.getValueAt(index, 0).toString());
-						int option = JOptionPane.showConfirmDialog(null, "Desea eliminar: "+selected.getCodigo()+"?", "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-						if(option == 0) {
-							Fabrica.getInstance().eliminarQueso(selected);
-							loadQuesos();
-							btnEliminar.setEnabled(false);
-							btnModificar.setEnabled(false);
-						}
-					}
-				});
-				buttonPane.add(btnEliminar);
 				btnModificar.setEnabled(false);
 				btnModificar.setActionCommand("OK");
 				buttonPane.add(btnModificar);

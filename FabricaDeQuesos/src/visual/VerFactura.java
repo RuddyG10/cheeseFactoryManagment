@@ -31,6 +31,7 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
+import javax.swing.ScrollPaneConstants;
 
 public class VerFactura extends JDialog {
 
@@ -70,7 +71,8 @@ public class VerFactura extends JDialog {
 		factura = aux;
 		setTitle("Factura");
 		setModal(true);
-		setBounds(100, 100, 492, 542);
+		setBounds(100, 100, 536, 542);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -78,7 +80,7 @@ public class VerFactura extends JDialog {
 		{
 			JPanel panelInfo = new JPanel();
 			panelInfo.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panelInfo.setBounds(10, 11, 456, 207);
+			panelInfo.setBounds(10, 11, 500, 207);
 			contentPanel.add(panelInfo);
 			panelInfo.setLayout(null);
 			
@@ -102,48 +104,48 @@ public class VerFactura extends JDialog {
 			
 			JPanel panel = new JPanel();
 			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel.setBounds(213, 43, 233, 153);
+			panel.setBounds(213, 43, 277, 153);
 			panelInfo.add(panel);
 			panel.setLayout(null);
 			
 			JLabel label = new JLabel("Nombre:");
-			label.setBounds(7, 19, 60, 14);
+			label.setBounds(22, 19, 60, 14);
 			panel.add(label);
 			
 			txtNombre = new JTextField();
 			txtNombre.setEditable(false);
 			txtNombre.setColumns(10);
-			txtNombre.setBounds(74, 14, 151, 20);
+			txtNombre.setBounds(104, 16, 151, 20);
 			panel.add(txtNombre);
 			
 			JLabel label_1 = new JLabel("Cedula:");
-			label_1.setBounds(7, 52, 60, 14);
+			label_1.setBounds(22, 52, 60, 14);
 			panel.add(label_1);
 			
 			txtCedula = new JTextField();
 			txtCedula.setEditable(false);
 			txtCedula.setColumns(10);
-			txtCedula.setBounds(74, 48, 151, 20);
+			txtCedula.setBounds(104, 49, 151, 20);
 			panel.add(txtCedula);
 			
 			JLabel label_2 = new JLabel("Telefono:");
-			label_2.setBounds(7, 85, 60, 14);
+			label_2.setBounds(22, 85, 60, 14);
 			panel.add(label_2);
 			
 			txtTelefono = new JTextField();
 			txtTelefono.setEditable(false);
 			txtTelefono.setColumns(10);
-			txtTelefono.setBounds(74, 82, 151, 20);
+			txtTelefono.setBounds(104, 80, 151, 20);
 			panel.add(txtTelefono);
 			
 			JLabel label_3 = new JLabel("Direccion:");
-			label_3.setBounds(7, 118, 60, 14);
+			label_3.setBounds(22, 118, 60, 14);
 			panel.add(label_3);
 			
 			txtDireccion = new JTextField();
 			txtDireccion.setEditable(false);
 			txtDireccion.setColumns(10);
-			txtDireccion.setBounds(74, 116, 151, 20);
+			txtDireccion.setBounds(104, 116, 151, 20);
 			panel.add(txtDireccion);
 			
 			JLabel lblNewLabel_4 = new JLabel("Codigo:");
@@ -169,11 +171,12 @@ public class VerFactura extends JDialog {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 229, 456, 132);
+		panel.setBounds(10, 229, 500, 132);
 		contentPanel.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		panel.add(scrollPane, BorderLayout.CENTER);
 		
 		table = new JTable();
@@ -186,7 +189,7 @@ public class VerFactura extends JDialog {
 		
 		JPanel panelTotal = new JPanel();
 		panelTotal.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelTotal.setBounds(10, 372, 266, 82);
+		panelTotal.setBounds(10, 372, 310, 82);
 		contentPanel.add(panelTotal);
 		panelTotal.setLayout(null);
 		
@@ -196,7 +199,7 @@ public class VerFactura extends JDialog {
 		
 		txtSubTotal = new JTextField();
 		txtSubTotal.setEditable(false);
-		txtSubTotal.setBounds(115, 14, 143, 20);
+		txtSubTotal.setBounds(125, 15, 143, 20);
 		panelTotal.add(txtSubTotal);
 		txtSubTotal.setColumns(10);
 		
@@ -206,13 +209,13 @@ public class VerFactura extends JDialog {
 		
 		txtVolumen = new JTextField();
 		txtVolumen.setEditable(false);
-		txtVolumen.setBounds(115, 47, 143, 20);
+		txtVolumen.setBounds(125, 47, 143, 20);
 		panelTotal.add(txtVolumen);
 		txtVolumen.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(286, 372, 180, 82);
+		panel_1.setBounds(330, 372, 180, 82);
 		contentPanel.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -232,14 +235,14 @@ public class VerFactura extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.addActionListener(new ActionListener() {
+				JButton btnCancel = new JButton("Cerrar");
+				btnCancel.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				btnCancel.setActionCommand("Cancel");
+				buttonPane.add(btnCancel);
 			}
 		}
 		load();
@@ -248,7 +251,7 @@ public class VerFactura extends JDialog {
 	public void load() {
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
-		ArrayList<Queso> quesos =factura.getQuesosCliente();
+		ArrayList<Queso> quesos=factura.getQuesosCliente();
 		float subTotal = 0;
 		float sumVolumen = 0;
 		float total = 0;

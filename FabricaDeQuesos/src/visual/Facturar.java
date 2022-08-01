@@ -38,6 +38,8 @@ import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JTextPane;
+import javax.swing.UIManager;
 
 public class Facturar extends JDialog {
 
@@ -78,8 +80,9 @@ public class Facturar extends JDialog {
 	public Facturar() {
 		setTitle("Facturar compra del cliente");
 		setModal(true);
-		setBounds(100, 100, 531, 482);
+		setBounds(100, 100, 531, 549);
 		getContentPane().setLayout(new BorderLayout());
+		setLocationRelativeTo(null);
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -212,12 +215,12 @@ public class Facturar extends JDialog {
 		
 		JPanel PanelCompra = new JPanel();
 		PanelCompra.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		PanelCompra.setBounds(10, 150, 496, 189);
+		PanelCompra.setBounds(10, 150, 496, 256);
 		contentPanel.add(PanelCompra);
 		PanelCompra.setLayout(null);
 		
-		JLabel lblNewLabel_5 = new JLabel("Lista de Quesos(Mantenga ctrl para seleccion multiple):");
-		lblNewLabel_5.setBounds(10, 11, 283, 14);
+		JLabel lblNewLabel_5 = new JLabel("Lista de Quesos:");
+		lblNewLabel_5.setBounds(10, 11, 183, 14);
 		PanelCompra.add(lblNewLabel_5);
 		
 		listQuesos = new JList();
@@ -318,9 +321,16 @@ public class Facturar extends JDialog {
 		listCompras.setBounds(303, 36, 183, 142);
 		PanelCompra.add(listCompras);
 		
+		JTextPane txtpnMantengaCtrlPara = new JTextPane();
+		txtpnMantengaCtrlPara.setText("Mantenga ctrl para seleccion multiple en ambas listas.\r\n \">\"-agregar al carrito.\r\n \"<\" devolver a la lista.\r\n");
+		txtpnMantengaCtrlPara.setEditable(false);
+		txtpnMantengaCtrlPara.setBackground(UIManager.getColor("Button.background"));
+		txtpnMantengaCtrlPara.setBounds(10, 189, 476, 56);
+		PanelCompra.add(txtpnMantengaCtrlPara);
+		
 		JPanel panelTotal = new JPanel();
 		panelTotal.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelTotal.setBounds(10, 350, 496, 44);
+		panelTotal.setBounds(10, 417, 496, 44);
 		contentPanel.add(panelTotal);
 		panelTotal.setLayout(null);
 		
@@ -350,6 +360,7 @@ public class Facturar extends JDialog {
 								Fabrica.getInstance().insertarCliente(auxCliente);
 							}
 							Factura factura = Fabrica.getInstance().crearFactura(auxCliente, selected);
+							
 							for (Queso queso : selected) {
 								Fabrica.getInstance().eliminarQueso(queso);
 							}

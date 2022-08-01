@@ -323,21 +323,9 @@ public class RegQueso extends JDialog {
 								
 							}
 							else {
-								
-								if(rdbtnEsfera.isSelected()) {
-									Queso aux = new QEsfera(codigo, radio, costo, unitario);
-									Fabrica.getInstance().reemplazarQueso(queso,aux);
-								}
-								if(rdbtnCilindro.isSelected()) {
-									Queso aux = new QCilindro(codigo, radio, costo,Float.parseFloat(spnLongitud.getValue().toString()) , unitario);
-									Fabrica.getInstance().reemplazarQueso(queso,aux);
-								}
-								if(rdbtnCilinHueco.isSelected()) {
-									Queso aux = new QHueco(codigo, radio, costo, Float.parseFloat(spnLongitudH.getValue().toString()), Float.parseFloat(spnRadioInt.getValue().toString()), unitario);
-									Fabrica.getInstance().reemplazarQueso(queso,aux);
-								}
-								
-								JOptionPane.showMessageDialog(null,codigo+" se ha registrado con exito!", "Informacion.", JOptionPane.INFORMATION_MESSAGE);
+								queso.setPrecioBase(costo);
+								queso.setPrecioUnitario(unitario);
+								JOptionPane.showMessageDialog(null,codigo+" se ha editado con exito!", "Informacion.", JOptionPane.INFORMATION_MESSAGE);
 								dispose();
 							}
 							clear();
@@ -379,6 +367,7 @@ public class RegQueso extends JDialog {
 			spnRadio.setValue(queso.getRadio());
 			if(queso instanceof QHueco) {
 				rdbtnCilinHueco.setSelected(true);
+				
 				activarPaneles();
 				spnRadioInt.setValue(((QHueco) queso).getRadioInterno());
 				spnLongitudH.setValue(((QHueco) queso).getLongitud());
@@ -393,7 +382,13 @@ public class RegQueso extends JDialog {
 				rdbtnEsfera.setSelected(true);
 				activarPaneles();
 			}
-			
+			spnRadio.setEnabled(false);
+			spnLongitud.setEnabled(false);
+			spnLongitudH.setEnabled(false);
+			spnRadioInt.setEnabled(false);
+			rdbtnCilinHueco.setEnabled(false);
+			rdbtnCilindro.setEnabled(false);
+			rdbtnEsfera.setEnabled(false);
 		}
 		
 	}
@@ -424,8 +419,7 @@ public class RegQueso extends JDialog {
 	}
 
 	public void activarRegistrar() {
-		if(!txtCodigo.getText().isEmpty() && Float.parseFloat(spnCosto.getValue().toString())>0
-				&& Float.parseFloat(spnRadio.getValue().toString())>0 && Float.parseFloat(spnPrecioUnitario.getValue().toString())>0 &&
+		if(!txtCodigo.getText().isEmpty() && Float.parseFloat(spnRadio.getValue().toString())>0 &&
 				rdbtnEsfera.isSelected() || rdbtnCilindro.isSelected() || rdbtnCilinHueco.isSelected()) {
 			if(rdbtnEsfera.isSelected()) {
 				btnRegistrar.setEnabled(true);

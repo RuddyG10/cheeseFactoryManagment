@@ -73,14 +73,13 @@ public class ListFac extends JDialog {
 				table.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent arg0) {
+						int index = table.getSelectedRow();
+						selected = Fabrica.getInstance().buscarFacturaPorCod(table.getValueAt(index, 0).toString());
+						
 						if(client == null) {
-							int index = table.getSelectedRow();
-							selected = Fabrica.getInstance().buscarFacturaPorCod(table.getValueAt(index, 0).toString());
-							if(selected != null) {
-								btnVerCliente.setEnabled(true);
-								
-							}
+						btnVerCliente.setEnabled(true);
 						}
+						btnVerFactura.setEnabled(true);
 					}
 				});
 				table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -104,6 +103,7 @@ public class ListFac extends JDialog {
 						ModClient ver = new ModClient(selected.getMiCliente(),true);
 						ver.setVisible(true);
 						btnVerCliente.setEnabled(false);
+						btnVerFactura.setEnabled(false);
 					}
 				});
 				{

@@ -9,8 +9,5 @@ public class QEsfera extends Queso {
 	public float volumen() {
 		return (float) ((4/3)*(Math.PI)*Math.pow(radio, 3));
 	}
-	public void precioUnitario() {
-		precioUnitario = 25;
-	}
 
 }

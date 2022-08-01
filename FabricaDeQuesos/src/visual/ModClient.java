@@ -155,8 +155,10 @@ public class ModClient extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						int option = JOptionPane.showConfirmDialog(null, "Desea guardar los cambios?", "Advertencia.", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 						if(option == 0) {
-							Cliente clientMod = new Cliente(txtCedula.getText(), txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText());
-							Fabrica.getInstance().reemplazarCliente(client,clientMod);
+							client.setCedula(txtCedula.getText());
+							client.setNombre(txtNombre.getText());
+							client.setDireccion(txtDireccion.getText());
+							client.setTelefono(txtTelefono.getText());
 							JOptionPane.showMessageDialog(null, "Cliente modificado.", "Informacion.", JOptionPane.INFORMATION_MESSAGE);
 							btnEditar.setEnabled(false);
 							dispose();
@@ -185,6 +187,9 @@ public class ModClient extends JDialog {
 	public void revision() {
 		if(ver) {
 			setTitle("Informacion del cliente");
+			txtDireccion.setEditable(false);
+			txtTelefono.setEditable(false);
+			txtNombre.setEditable(false);
 			btnEditar.setVisible(false);
 		}
 	}

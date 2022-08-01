@@ -32,7 +32,6 @@ public class ListClients extends JDialog {
 	private boolean search;
 	private JButton btnCancelar;
 	private JButton btnModificar;
-	private JButton btnEliminar;
 	private JButton btnVerFacturas;
 	private Cliente selected;
 	private JButton btnSeleccionar;
@@ -58,6 +57,7 @@ public class ListClients extends JDialog {
 		setResizable(false);
 		setModal(true);
 		setBounds(100, 100, 506, 300);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -75,7 +75,6 @@ public class ListClients extends JDialog {
 							selected = Fabrica.getInstance().buscarClientePorCedula(table.getValueAt(index, 0).toString());
 						}
 						if(!search) {
-							btnEliminar.setEnabled(true);
 							btnModificar.setEnabled(true);
 							btnVerFacturas.setEnabled(true);
 						}
@@ -103,9 +102,8 @@ public class ListClients extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						ListFac lista = new ListFac(selected);
 						lista.setVisible(true);
-						btnEliminar.setEnabled(true);
-						btnModificar.setEnabled(true);
-						btnVerFacturas.setEnabled(true);
+						btnModificar.setEnabled(false);
+						btnVerFacturas.setEnabled(false);
 					}
 				});
 				{
@@ -124,29 +122,13 @@ public class ListClients extends JDialog {
 				buttonPane.add(btnVerFacturas);
 			}
 			{
-				btnEliminar = new JButton("Eliminar");
-				btnEliminar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						int option = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar al cliente: "+selected.getCedula(), "Advertencia.", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-						if(option == 0) {
-							Fabrica.getInstance().eliminarCliente(selected);
-							loadClient();
-							btnEliminar.setEnabled(false);
-							btnModificar.setEnabled(false);
-						}
-						JOptionPane.showInternalMessageDialog(null, "Cliente eliminado.","Informacion.", JOptionPane.INFORMATION_MESSAGE);
-						
-					}
-				});
-				btnEliminar.setEnabled(false);
-				buttonPane.add(btnEliminar);
-			}
-			{
 				btnModificar = new JButton("Modificar");
 				btnModificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						ModClient modificar = new ModClient(selected,false);
 						modificar.setVisible(true);
+						btnModificar.setEnabled(false);
+						btnVerFacturas.setEnabled(false);
 						loadClient();
 					}
 				});
@@ -179,7 +161,6 @@ public class ListClients extends JDialog {
 		if(search) {
 			setTitle("Seleccione cliente");
 			btnModificar.setVisible(false);
-			btnEliminar.setVisible(false);
 			btnVerFacturas.setVisible(false);
 			btnSeleccionar.setVisible(true);
 		}
