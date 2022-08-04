@@ -473,7 +473,6 @@ public class Facturar extends JDialog {
 			ArrayList<Queso> quesos = factura.getQuesosCliente();
 			for (Queso queso : quesos) {
 				facWrite.println(queso.getCodigo()+" Vol. "+queso.volumen()+" $"+queso.getPrecioUnitario());
-				
 			}
 			facWrite.println("===================================================");
 			facWrite.println("¡Gracias por preferirnos!");
