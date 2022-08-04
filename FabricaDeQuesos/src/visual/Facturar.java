@@ -439,6 +439,7 @@ public class Facturar extends JDialog {
 		selected = new ArrayList<Queso>();
 		for (int i = 0; i < listModelCarrito.size(); i++) {
 			codes = listModelCarrito.get(i).toString().split(" ");
+
 			selected.add(Fabrica.getInstance().buscarQuesoByCod(codes[0]));
 		}
 		for (Queso queso : selected) {

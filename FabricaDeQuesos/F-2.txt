@@ -1,0 +1,11 @@
+===================================================
+¡Bienvenidos!
+Fecha en la que se hizo la factura: 04/08/2022
+Nombre del cliente:feli
+Telefono: 4545334
+===================================================
+Quesos:
+QC-2 Vol. 8846.725 $16.0
+===================================================
+¡Gracias por preferirnos!
+

@@ -1,0 +1,11 @@
+===================================================
+¡Bienvenidos!
+Fecha en la que se hizo la factura: 04/08/2022
+Nombre del cliente:feli
+Telefono: 4545334
+===================================================
+Quesos:
+QE-1 Vol. 10602.875 $16.0
+===================================================
+¡Gracias por preferirnos!
+
