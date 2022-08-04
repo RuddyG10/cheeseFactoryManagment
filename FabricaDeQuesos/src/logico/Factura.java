@@ -1,9 +1,10 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Factura {
+public class Factura implements Serializable{
 	private Cliente miCliente;
 	private ArrayList<Queso> quesosCliente;
 	private float precioTotal;

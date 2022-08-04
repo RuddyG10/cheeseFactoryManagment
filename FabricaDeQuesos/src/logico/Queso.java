@@ -1,6 +1,8 @@
 package logico;
 
-public class Queso {
+import java.io.Serializable;
+
+public class Queso implements Serializable{
 	
 	protected String codigo;
 	protected float radio;

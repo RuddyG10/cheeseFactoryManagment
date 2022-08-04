@@ -1,8 +1,9 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Fabrica {
+public class Fabrica implements Serializable{
 	
 	private ArrayList<Queso> misQuesos;
 	private ArrayList<Cliente> misClientes;
@@ -10,6 +11,7 @@ public class Fabrica {
 	public static int genCodQueso= 1;
 	public static int genCodFact = 1;
 	private static Fabrica fabri = null;
+	private static final long serialVersionUID = 1;
 	public Fabrica() {
 		super();
 		this.facturas = new ArrayList<Factura>();
@@ -21,6 +23,9 @@ public class Fabrica {
 			fabri = new Fabrica();
 		}
 		return fabri;
+	}
+	public static void setFabrica(Fabrica fab) {
+		Fabrica.fabri = fab;
 	}
 	public ArrayList<Queso> getMisQuesos() {
 		return misQuesos;

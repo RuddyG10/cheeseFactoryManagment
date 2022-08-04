@@ -10,8 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import com.sun.glass.ui.Pixels.Format;
-
 import logico.Cliente;
 import logico.Fabrica;
 import logico.Factura;
