@@ -30,6 +30,10 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.awt.event.ContainerAdapter;
@@ -358,7 +362,13 @@ public class Facturar extends JDialog {
 								Fabrica.getInstance().insertarCliente(auxCliente);
 							}
 							Factura factura = Fabrica.getInstance().crearFactura(auxCliente, selected);
-							
+							try {
+								crearFichero(factura);
+								JOptionPane.showMessageDialog(null, "Archivo de factura generado, refresque el proyecto para visualizarla.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 							for (Queso queso : selected) {
 								Fabrica.getInstance().eliminarQueso(queso);
 							}
@@ -374,6 +384,8 @@ public class Facturar extends JDialog {
 						}
 						
 					}
+
+					
 
 					
 
@@ -427,7 +439,6 @@ public class Facturar extends JDialog {
 		selected = new ArrayList<Queso>();
 		for (int i = 0; i < listModelCarrito.size(); i++) {
 			codes = listModelCarrito.get(i).toString().split(" ");
-			System.out.println(codes[0]);
 			selected.add(Fabrica.getInstance().buscarQuesoByCod(codes[0]));
 		}
 		for (Queso queso : selected) {
@@ -444,5 +455,35 @@ public class Facturar extends JDialog {
 		txtTelefono.setText("");
 		txtTotal.setText("");
 		listModelCarrito.clear();
+	}
+	private void crearFichero(Factura factura) throws IOException {
+		FileWriter fac = null;
+		PrintWriter facWrite= null;
+		try {
+			fac = new FileWriter(factura.getCodigo()+".txt");
+			facWrite = new PrintWriter(fac);
+			
+			facWrite.println("===================================================");
+			facWrite.println("¡Bienvenidos!");
+			facWrite.println("Fecha en la que se hizo la factura: "+format.format(factura.getFecha()));
+			facWrite.println("Nombre del cliente:"+factura.getMiCliente().getNombre());
+			facWrite.println("Telefono: "+factura.getMiCliente().getTelefono());
+			facWrite.println("===================================================");
+			facWrite.println("Quesos:");
+			ArrayList<Queso> quesos = factura.getQuesosCliente();
+			for (Queso queso : quesos) {
+				facWrite.println(queso.getCodigo()+" Vol. "+queso.volumen()+" $"+queso.getPrecioUnitario());
+				
+			}
+			facWrite.println("===================================================");
+			facWrite.println("¡Gracias por preferirnos!");
+			facWrite.println();
+			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Error: "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}finally {
+			fac.close();
+		}
+		
 	}
 }
