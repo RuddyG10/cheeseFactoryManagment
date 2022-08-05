@@ -7,11 +7,24 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+
+import logico.Fabrica;
+
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class Menu extends JFrame {
 
@@ -22,12 +35,53 @@ public class Menu extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				FileInputStream queseria;
+				FileOutputStream queseria2;
+				ObjectInputStream reader;
+				ObjectOutputStream queseriaWrite;
+				try {
+					queseria = new FileInputStream("queseria.dat");
+					reader = new ObjectInputStream(queseria);
+					int genCodFact = reader.readInt();
+					int genCodQueso = reader.readInt();
+					
+					Fabrica temp = (Fabrica)reader.readObject();
+					Fabrica.setFabrica(temp);
+					temp.genCodFact = genCodFact;
+					temp.genCodQueso = genCodQueso;
+					
+					queseria.close();
+					reader.close();
+					
+				} catch (FileNotFoundException e) {
+					try {
+						queseria2 = new FileOutputStream("queseria.dat");
+						queseriaWrite = new ObjectOutputStream(queseria2);
+			
+						queseriaWrite.writeInt(Fabrica.getInstance().genCodFact);
+						queseriaWrite.writeInt(Fabrica.getInstance().genCodQueso);
+						queseriaWrite.writeObject(Fabrica.getInstance());
+						
+						queseria2.close();
+						queseriaWrite.close();
+					} catch (Exception e2) {
+						// TODO: handle exception
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				try {
 					Menu frame = new Menu();
 					frame.setVisible(true);
 				} catch (Exception e) {
+					// TODO: handle exception
 					e.printStackTrace();
 				}
 			}
@@ -38,6 +92,27 @@ public class Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Menu() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+
+				FileOutputStream queseria;
+				ObjectOutputStream queseriaWrite;
+				try {
+					queseria = new FileOutputStream("queseria.dat");
+					queseriaWrite = new ObjectOutputStream(queseria);
+					queseriaWrite.writeInt(Fabrica.getInstance().genCodFact);
+					queseriaWrite.writeInt(Fabrica.getInstance().genCodQueso);
+					queseriaWrite.writeObject(Fabrica.getInstance());
+				} catch (FileNotFoundException e2) {
+					// TODO: handle exception
+					e2.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		setTitle("Menu Principal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
