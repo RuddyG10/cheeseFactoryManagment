@@ -10,7 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 
 import logico.Fabrica;
-
+import logico.Factura;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -19,18 +19,25 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 public class Menu extends JFrame {
 
 	private JPanel contentPane;
 	private Dimension dim;
-
+	static Socket sdf = null;
+	static DataInputStream EntradaSocket = null;
+	static DataOutputStream SalidaSocket = null;
 	/**
 	 * Launch the application.
 	 */
@@ -74,6 +81,15 @@ public class Menu extends JFrame {
 					e.printStackTrace();
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				try {
+					sdf = new Socket("127.0.0.1", 7000);
+					EntradaSocket = new DataInputStream(new BufferedInputStream(sdf.getInputStream()));
+					SalidaSocket = new DataOutputStream(new BufferedOutputStream(sdf.getOutputStream()));
+				}
+				catch (Exception e) {
 					e.printStackTrace();
 				}
 				
@@ -180,6 +196,19 @@ public class Menu extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+	}
+
+	public static void respaldo(Factura factura) {
+		try {
+			if(factura!=null) {
+				SalidaSocket.writeUTF(factura.getCodigo());
+				SalidaSocket.flush();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

@@ -30,10 +30,19 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.awt.event.ContainerAdapter;
@@ -364,6 +373,7 @@ public class Facturar extends JDialog {
 							Factura factura = Fabrica.getInstance().crearFactura(auxCliente, selected);
 							try {
 								crearFichero(factura);
+								Menu.respaldo(factura);
 								JOptionPane.showMessageDialog(null, "Archivo de factura generado, refresque el proyecto para visualizarla.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
@@ -458,10 +468,10 @@ public class Facturar extends JDialog {
 		listModelCarrito.clear();
 	}
 	private void crearFichero(Factura factura) throws IOException {
-		FileWriter fac = null;
+		File fac = null;
 		PrintWriter facWrite= null;
 		try {
-			fac = new FileWriter(factura.getCodigo()+".txt");
+			fac = new File(factura.getCodigo()+".txt");
 			facWrite = new PrintWriter(fac);
 			
 			facWrite.println("===================================================");
@@ -482,8 +492,10 @@ public class Facturar extends JDialog {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Error: "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}finally {
-			fac.close();
-		}
+			facWrite.close();
+			
+		} 
+		
 		
 	}
 }
