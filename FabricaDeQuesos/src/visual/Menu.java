@@ -74,7 +74,7 @@ public class Menu extends JFrame {
 						queseria2.close();
 						queseriaWrite.close();
 					} catch (Exception e2) {
-						// TODO: handle exception
+						e2.printStackTrace();
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

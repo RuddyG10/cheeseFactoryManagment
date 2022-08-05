@@ -12,12 +12,13 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import jdk.internal.org.jline.utils.InputStreamReader;
+//import jdk.internal.org.jline.utils.InputStreamReader;
 
 public class Servidor extends Thread {
 
@@ -43,12 +44,12 @@ public class Servidor extends Thread {
 	 				try {
 	 					System.out.println(linea);
 						File original = new File(linea+".txt");
-						InputStream input;
+						FileInputStream input;
 						input = new FileInputStream(original);
 						BufferedReader br = new BufferedReader(new InputStreamReader(input));
 						File respaldo = new File(linea+"_Respaldo.txt");
 						
-						OutputStream input2;
+						FileOutputStream input2;
 						input2 = new FileOutputStream(respaldo);
 						BufferedWriter br2 = new BufferedWriter(new OutputStreamWriter(input2));
 						try {

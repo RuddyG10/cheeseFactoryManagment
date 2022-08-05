@@ -475,7 +475,7 @@ public class Facturar extends JDialog {
 			facWrite = new PrintWriter(fac);
 			
 			facWrite.println("===================================================");
-			facWrite.println("Â¡Bienvenidos!");
+			facWrite.println("¡Bienvenidos!");
 			facWrite.println("Fecha en la que se hizo la factura: "+format.format(factura.getFecha()));
 			facWrite.println("Nombre del cliente:"+factura.getMiCliente().getNombre());
 			facWrite.println("Telefono: "+factura.getMiCliente().getTelefono());
@@ -485,8 +485,9 @@ public class Facturar extends JDialog {
 			for (Queso queso : quesos) {
 				facWrite.println(queso.getCodigo()+" Vol. "+queso.volumen()+" $"+queso.getPrecioUnitario());
 			}
+			facWrite.println("Total: $"+factura.getPrecioTotal());
 			facWrite.println("===================================================");
-			facWrite.println("Â¡Gracias por preferirnos!");
+			facWrite.println("¡Gracias por preferirnos!");
 			facWrite.println();
 			
 		} catch (Exception e) {

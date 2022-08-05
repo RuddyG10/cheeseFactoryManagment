@@ -88,7 +88,6 @@ public class Fabrica implements Serializable{
 	}
 	public void eliminarQueso(Queso selected) {
 		misQuesos.remove(selected);
-		genCodQueso--;
 		
 	}
 	public Cliente buscarClientePorCedula(String cedula) {
